@@ -47,3 +47,9 @@ for i in iter(int, 1):
         break
     else:
         print("Nothing to report")
+        
+# for-else문
+for x in range(1,5):
+    print(x)
+else:
+    print("for문 종료!")
