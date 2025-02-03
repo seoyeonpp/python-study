@@ -26,6 +26,8 @@ while (isValid == False):
         
 # 양(陽)의 정수를 입력받아, 그 수가 몇 자리 숫자인지 출력하는 함수 numOfDigits()를 만들어 보세요.
 def numOfDigits(num):
+    if num < 0:
+        return print("양의 정수를 입력해주세요.")
     return print(f"{len(str(num))} 자리수 입니다.")
 
 num_input = int(input("양의 정수를 입력하시면 자리수를 알려드립니다. : "))
@@ -55,3 +57,40 @@ def korean_age():
     else:
         return print(f"한국 나이는 {this_year - int(year_input) + 1}세 이고, 만 나이는 {this_year - int(year_input)}세 입니다.")
 korean_age()
+
+# 원금(p), 단리 이율(r), 기간(t)이 주어졌을 때 이자를 구하는 함수 simple_interest()를 작성하세요.
+def simple_interest(p, r, t):
+    return print(f"이자는 {p*r*t} 입니다.")
+simple_interest(10000000, 0.03875, 5)
+
+# 원금(p), 단리 이율(r), 기간(t)이 주어졌을 때 원리금을 계산하는 함수 simple_interest_amount()를 작성하세요.
+def simple_interest_amount(p, r, t):
+    return print(f"원리금은 {p * (1+r*t)} 입니다.")
+simple_interest_amount(10000000, 0.03875, 5)
+
+# 놀이 기구의 이름과 키 제한을 나타낸 문자열을 입력받아서, 놀이 기구의 이름, 탑승 가능한 키의 하한(下限)과 상한(上限)을 각 행에 출력합니다.
+def ride_reader(text):
+    text_array = text.split(":")
+    ridename = text_array[0].strip() #공백 제거
+    cm_text = text_array[1]
+    
+    cmmin = cmmax = None  # 초깃값 설정
+    
+    print(cm_text)
+    if "~" in cm_text:
+        cmmin, cmmax = cm_text.split("~")
+        cmmin = int(cmmin.strip().replace("cm", ""))
+        cmmax = int(cmmax.strip().replace("cm", ""))
+    else:
+          if "이상" in cm_text:
+              cmmin = int(cm_text.split("cm")[0].strip())
+          elif "이하" in cm_text:
+              cmmax = int(cm_text.split("cm")[0].strip())
+              
+    return ridename, cmmin, cmmax
+    
+if __name__ == "__main__":
+    ridename, cmmin, cmmax = ride_reader(input())
+    print("이름:", ridename)
+    print("하한:", cmmin)
+    print("상한:", cmmax)
