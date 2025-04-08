@@ -36,6 +36,7 @@ def bfs(graph, start):
     # → F 꺼냄 → 끝
     # → G 꺼냄 → 끝
     # bfs는 선입선출이 핵심이라서 큐를 사용
+    # 최단 거리 구하기
     visited = set() # set은 빠른 조회 O(n)
     queue = deque([start]) # 맨 처음에 start 넣고 시작
 
@@ -46,6 +47,30 @@ def bfs(graph, start):
             visited.add(node)
             queue.extend(graph[node]) # 인접 노드들을 큐에 추가
 
+def bfs_shortest_path(graph, start, end):
+    # bfs로 최단 경로 찾기
+    visited = set()
+    queue = deque([(start, 0)]) # (노드, 거리)
+
+    while queue:
+        node, path = queue.popleft()
+        if node == end:
+            return path
+        if node not in visited:
+            visited.add(node)
+            for neighbor in graph[node]:
+                queue.append((neighbor, path + 1))
+
+    return -1 # 경로가 없을 경우
+
 if __name__=="__main__":
     dfs(graph, 'A', set())
     bfs(graph, 'A')
+    print(f"bfs로 최단거리 구하기 : {bfs_shortest_path(graph,'A','G')}")
+    # DFS로는 왜 최단거리를 구할 수 없을까?
+    # → DFS는 깊이 우선 탐색이라서, 최단거리를 보장하지 않음
+    # → 이미 방문했으니까 더 짧은 길이 있어도 탐색 자체를 하지않음
+    # BFS는?
+    # → BFS는 너비 우선 탐색이라서, 최단거리를 보장함
+    # → 가까운 노드부터 탐색하기 때문에 처음 도달한 순간이 가장 빠른 거리임
+    # → 그래서 찾는 순간 리턴하면 끝!
