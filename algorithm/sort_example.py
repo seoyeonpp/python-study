@@ -1,20 +1,11 @@
-import time
-from functools import wraps
 import random
+import algorithm
 
-# 함수 시간 측정 decorator
-def time_logger(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start_time = time.perf_counter()  # 더 정밀한 시간 측정
-        result = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        print(f"[{func.__name__}] 실행 시간: {end_time - start_time:.6f}초")
-        return result
-    return wrapper
+"""
+정렬 알고리즘 예제 코드
+"""
 
-
-@time_logger
+@algorithm.helper.time_logger
 def bubble_sort(arr):
     # 버블정렬은 인접한 두값을 비교해서 큰값을 오른쪽으로 한칸씩 밀어내는 방식
     # 비교할때마다 swap
@@ -26,7 +17,7 @@ def bubble_sort(arr):
                 arr[j], arr[j+1] = arr[j+1], arr[j] # swap
     print("버블정렬 완료:", arr)
 
-@time_logger
+@algorithm.helper.time_logger
 def selection_sort(arr):
     # 선택정렬은 현재 위치에서 가장 작은값을 선택해서 앞으로 가져옴
     # 한 라운드에 한번만 swap
@@ -40,7 +31,7 @@ def selection_sort(arr):
         arr[i], arr[min_idx] = arr[min_idx], arr[i] # swap
     print("선택정렬 완료:", arr)
 
-@time_logger
+@algorithm.helper.time_logger
 def insertion_sort(arr):
     # 삽입정렬은 데이터를 하나씩 왼쪽의 정렬된 영역에 적절한 위치에 삽입하면서 정렬
     # 한칸씩 밀어내며 삽입
@@ -76,7 +67,7 @@ def merge(left, right):
 
     return result
 
-@time_logger
+@algorithm.helper.time_logger
 def merge_sort(arr):
     # 리스트를 반으로 나누고, 정렬해서 합치는 분할 정복 알고리즘
     # 평균,최악,최선 - O(n log n)
@@ -90,7 +81,7 @@ def merge_sort(arr):
 
     return merge(left, right)    # 정렬된 두 배열 병합
 
-@time_logger
+@algorithm.helper.time_logger
 def quick_sort(arr):
     # 최선,평균 - O(n log n), 최악 - O(n^2)
     # n 개의 데이터를 log n 깊이로 계속 나눔
