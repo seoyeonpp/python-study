@@ -5,7 +5,7 @@ import heapq
 
 @algorithm.helper.time_logger
 def dijkstra(graph, start):
-    # 시간복잡도 O((V + E) log V)
+    # 시간복잡도 O((V + E) log V) - V: Vertex(정점) 개수, E: Edge(간선) 개수
     # 모든 노드의 거리를 무한대로 초기화, 아직 도달하지 못했다는 의미 (도달하지 않은 노드는 무한히 멀다고 가정하기 때문. 0으로 초기화한다면 알고리즘이 거리 갱신을 안함! )
     # float('inf') 는 양의 무한대 (다익스트라, 플로이드, DP등에서 최댓값 초기화 용도로 사용)
     distances = {node: float('inf') for node in graph}
