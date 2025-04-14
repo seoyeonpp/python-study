@@ -1,5 +1,6 @@
 import math
 from functools import reduce
+from itertools import permutations, combinations
 
 # 모듈러 알고리즘
 # 모듈러 연산 = “나머지만 가지고 계산하는 세계”
@@ -48,6 +49,46 @@ def lcm_multiple(numbers):
     # 여러 수의 최소 공배수 구하기
     return reduce(lcm, numbers) # reduce는 리스트의 모든 요소에 대해 lcm 함수를 적용하여 결과를 반환
 
+items = ['🍎', '🍌', '🍒']
+r = 2
+# 조합과 순열
+def combinations_example(elements, r):
+    # 조합 예제
+    return list(combinations(elements, r))
+def permutations_example(elements, r):
+    # 순열 예제
+    return list(permutations(elements, r))
+
+# 조합을 직접 구현한 예제
+com_result_list = []
+def combination_by_hand(index, level):
+    if level == r:
+        print("조합:", com_result_list)
+        return
+    for i in range(index, len(items)):
+        com_result_list.append(items[i])
+        combination_by_hand(i + 1, level + 1) # 다음 인덱스로 재귀
+        com_result_list.pop() # 마지막에 추가한 요소를 제거
+
+# 순열을 직접 구현한 예제
+per_result_list = []
+check = [False] * len(items)
+def permutation_by_hand(level):
+    if level == r:
+        print("순열:", per_result_list)
+        return
+    for i in range(0, len(items)):
+        if check[i] == True: # items[i]가 이미 사용되었으면 continue
+            continue
+
+        per_result_list.append(items[i]) # 인덱스 i인 원소를 추가
+        check[i] = True # 사용했다고 체크
+        permutation_by_hand(level + 1) # 다음 레벨로 재귀
+        check[i] = False # 사용했다고 체크한거 다시 False로 바꿈
+        per_result_list.pop() # 마지막에 추가한 요소를 제거
+
+
+
 if __name__ == "__main__":
     n = 99
     print(f"{n}번째 원소는 {modular_algorithm(n)}입니다.")
@@ -70,4 +111,13 @@ if __name__ == "__main__":
     numbers = [4, 6, 8]
     print(f"{numbers}의 최소 공배수는 {lcm_multiple(numbers)}입니다.")
     print("------------------------------")
+
+    com_result = combinations_example(items, r)
+    perm_result = permutations_example(items, r)
+    print(f"{items}의 {r}개 조합:{com_result}, 총 {len(com_result)}개")
+    print(f"{items}의 {r}개 순열:{perm_result}, 총 {len(perm_result)}개")
+    print("------------------------------")
+    combination_by_hand(0,0)
+    print("------------------------------")
+    permutation_by_hand(0)
 
