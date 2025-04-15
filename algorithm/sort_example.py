@@ -98,6 +98,26 @@ def quick_sort(arr):
 
     return quick_sort(left) + mid + quick_sort(right)
 
+@algorithm.helper.time_logger
+def counting_sort(arr):
+    # 계수정렬
+    # 비교를 하지않고, 카운팅만으로 정렬
+    # 시간복잡도 O(N + K) - N: 정렬할 데이터 개수, K: 데이터의 범위
+    # 정렬 대상이 많고, 범위가 좁을때 유용
+    max_val = max(arr)
+    count = [0] * (max_val + 1)
+
+    # 1단계: 등장 횟수 카운트
+    for num in arr:
+        count[num] += 1
+
+    # 2단계: 결과 리스트 구성
+    sorted_arr = []
+    for i in range(len(count)):
+        sorted_arr.extend([i] * count[i])
+
+    return sorted_arr
+
 
 if __name__=="__main__":
     random_array = random.sample(range(100), 30)
@@ -108,3 +128,4 @@ if __name__=="__main__":
     insertion_sort(random_array) # 실행 시간: 0.000009초 - 왜 빠를까? : 버블, 선택정렬은 항상 전체 범위를 비교하지만 삽입 정렬은 앞쪽이 정렬되어있으면 바로 넘어감 (early stop)
     print("병합정렬 완료 ", merge_sort(random_array)) # 실행 시간: 0.000167초 - 왜 느릴까? : 데이터 양이 작을땐 단순한 정렬이 더 빨라서그렇다. 재귀 + 리스트복사가 많다.
     print("퀵정렬 완료 ", quick_sort(random_array)) # 실행 시간: 0.000158초
+    print("계수정렬 완료 ", counting_sort(random_array)) # 실행 시간: 0.000018초

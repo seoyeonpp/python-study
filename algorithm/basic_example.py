@@ -21,13 +21,12 @@ def sieve_of_eratosthenes(n):
     # n까지의 소수를 찾는 함수
     # 시간복잡도 O(n log log n)
     is_prime = [True] * (n + 1) # 0~n까지 True로 초기화
-    print("is_prime 초기화:", is_prime)
     is_prime[0], is_prime[1] = False, False # 0,1은 소수가 아님
 
     for i in range(2, int(math.sqrt(n)) + 1): # 2부터 n의 제곱근까지 반복 (약수는 쌍으로 존재하기때문에 루트n까지만 확인하면됨)
         if not is_prime[i]: continue
-        for j in range(2 * i, n +1, i):
-            is_prime[j] = False
+        for j in range(2 * i, n +1, i): # i의 첫 배수 (2*i)부터 n까지 i씩 증가
+            is_prime[j] = False # i의 배수들은 합성수이기 때문에 False로 설정
 
     return [i for i in range(n + 1) if is_prime[i]] # 소수 리스트 반환
 
@@ -52,6 +51,8 @@ def lcm_multiple(numbers):
 items = ['🍎', '🍌', '🍒']
 r = 2
 # 조합과 순열
+# 조합 : 순서 상관없이 r개를 뽑는 것
+# 순열 : 순서 상관있게 r개를 뽑는 것
 def combinations_example(elements, r):
     # 조합 예제
     return list(combinations(elements, r))
