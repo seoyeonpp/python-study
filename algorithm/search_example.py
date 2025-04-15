@@ -46,6 +46,35 @@ def binary_search_recursive(arr, target, left, right):
     else: # 중간값이 target보다 크면 오른쪽은 버리고 왼쪽만 탐색
         return binary_search_recursive(arr, target, left, mid - 1)
 
+# 파라메트릭 서치
+# 답이 되는 값을 직접 찾지 않고, 조건을 만족하는 값을 이분 탐색으로 찾는 기법
+# 예를 들어, 특정 조건을 만족하는 가장 작은 값이나 가장 큰 값을 찾는 경우에 유용함
+# 최소한읭 000, 가장 큰 000까지 가능, 이 조건을 만족하는 최소/최대값은? 이런말 들어가면 거의...
+
+# [문제] 나무 자르기
+# 높이가 서로 다른 나무가 N개 있다.
+# 톱의 높이 H를 정해서 자르면, H 이상인 나무는 자르고,
+# 그 아래는 그대로 둔다. 자른 나무의 총 길이가 M 이상이 되도록 하고 싶다.
+# → 가능한 H 중에서 최댓값을 구해라!
+trees = [20, 15, 10, 17]
+M = 7
+def cut_tree(H):
+    total = 0
+    for tree in trees:
+        if tree > H:
+            total += tree - H
+    return total >= M
+
+def find_max_height(low, high):
+    # 이분 탐색으로 최대 높이 찾기
+    while low <= high:
+        mid = (low + high) // 2
+        if cut_tree(mid): # 조건을 만족하면 높이를 높여야함
+            low = mid + 1
+        else: # 조건을 만족하지 않으면 높이를 낮춰야함
+            high = mid - 1
+    return high # 최댓값 반환
+
 
 if __name__=="__main__":
     random_array = random.sample(range(100), 30)
@@ -61,3 +90,6 @@ if __name__=="__main__":
     # 재귀가 반복문보다 조금 느림
     # 재귀는 호출될때마다 새로운 스택 프레임이 쌓임 (시간 + 메모리 오버헤드 발생)
     # python에서는 깊은 재귀는 RecursionError 발생 가능성 있음! 최대한 반복문으로..
+
+    low, high = 0, max(trees)
+    print(f"나무 자르기 문제의 최대 높이: {find_max_height(low, high)}")
