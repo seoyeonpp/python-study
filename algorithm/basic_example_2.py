@@ -105,6 +105,34 @@ def min_coin_count(N):
 
     print(f"사용된 동전들: {path[::-1]}")  # 앞에서부터 보기 좋게 뒤집기
 
+# 투포인터 알고리즘
+# 두 개의 포인터(지점)를 이용하는 알고리즘
+
+# [문제]
+# 크기가 N인 양의 정수로 이루어진 배열이 있다고 해보자.
+# 이때, 부분 구간의 합이 M인 부분 구간이 몇 개인지 구하여라.
+# (1 ≤ N ≤ 10,000, 1 ≤ M ≤ 300,000,000) (시간 제한: 1초)
+# 투포인터 + 누적합 슬라이딩 윈도우
+# 시간복잡도 O(N)
+def two_pointer(arr, M):
+    N = len(arr)
+    left = 0
+    total = 0
+    count = 0
+
+    for right in range(N):
+        total += arr[right]
+
+        # 합이 M을 넘는다면 left를 줄여서 조절
+        while total > M and left <= right:
+            total -= arr[left]
+            left += 1
+
+            # 합이 정확히 M일 경우
+            if total == M:
+                count += 1
+    return count
+
 if __name__ == "__main__":
     n = 1000
     result = 0
@@ -113,3 +141,7 @@ if __name__ == "__main__":
     print("11원을 만들기 위한 동전 개수:", greedy(11)[0], "개", greedy(11)[1])
     print("6원을 만들기 위한 동전 개수:", dp(6), "개")
     min_coin_count(6)
+
+    arr = [1, 2, 3, 2, 5, 3, 1, 1, 2, 1]
+    M = 5
+    print("부분합이", M, "인 구간 개수:", two_pointer(arr, M))
