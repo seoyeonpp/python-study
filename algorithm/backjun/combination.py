@@ -15,8 +15,10 @@ def combination(index, level):
 
     # recursive case
     for i in range (index,N):
+        print(f"index : {index}, N : {N}, i: {i}")
         choose.append(arr[i]) # 인덱스가 i인 원소를 선택(추가)
         combination(i+1, level+1) # 다음 for문으로 들어감
+        print("pop!")
         choose.pop() # 넣었던 인덱스가 i인 원소를 제거
 
 combination(0,0)
