@@ -1,9 +1,10 @@
 # 백준: https://www.acmicpc.net/problem/6603
-S= [1,2,3,5,8,13,21,34]
+from scipy.optimize import bracket
+
 choose = []
 def comb(index,level):
     if level == 6:
-        print(choose)
+        print(" ".join(choose))
         return
 
     for i in range(index,len(S)):
@@ -11,4 +12,18 @@ def comb(index,level):
         comb(i+1,level+1)
         choose.pop()
 
-comb(0,0)
+while True:
+    try:
+        isEnd = False
+        temp = input().split(" ")
+        k = temp[0]
+        S = temp[1:]
+        if k == "0" or k == 0:
+            break
+        comb(0,0)
+        isEnd = True
+
+        if isEnd:
+            print()
+    except:
+        break
