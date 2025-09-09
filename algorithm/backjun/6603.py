@@ -1,5 +1,4 @@
 # 백준: https://www.acmicpc.net/problem/6603
-from scipy.optimize import bracket
 
 choose = []
 def comb(index,level):
