@@ -1,7 +1,5 @@
 # 백준 : https://www.acmicpc.net/problem/23246
 
-def solve():
-    return
 
 def format_handler(arr):
     format_arr = []
@@ -13,8 +11,8 @@ def format_handler(arr):
     return format_arr
 
 n = int(input())
-# player = [tuple(map(int,input().split())) for _ in range(n)]
 init_arr = [input() for _ in range(n)]
 player = format_handler(init_arr)
 
-print(sorted(player))
+for el in sorted(player)[:3]:
+    print(el[-1], end=" ")
